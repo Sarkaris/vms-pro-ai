@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Shield, Users, BarChart, Clock } from 'lucide-react';
+import { Eye, EyeOff, Shield, Users, BarChart, Clock } from 'lucide-react';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { useNavigate } from "react-router-dom";
 
