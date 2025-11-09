@@ -222,10 +222,9 @@ const handleSearch = useCallback(async (identifier) => {
   const passportRegex = /^[A-Z][0-9]{7}$/; // e.g., A1234567
   const drivingRegex = /^[A-Z0-9]{10,20}$/; // broad but constrained length
 
-  const validateField = (name, rawValue, nextState) => {
+  const validateField = (name, rawValue) => {
     let message = '';
     const value = (rawValue || '').toString().trim();
-    const currentState = nextState || formData;
 
     if (name === 'firstName' || name === 'lastName') {
       if (!nameRegex.test(value)) message = "Only letters, spaces, .' - (2-50 chars)";
