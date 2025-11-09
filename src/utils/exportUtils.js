@@ -12,22 +12,6 @@ const COLUMN_WIDTHS = {
   analytics: { A: 20, B: 15, C: 15, D: 25, E: 20 }
 };
 
-/**
- * Create a formatted cell style
- */
-const createCellStyle = (bgColor = '#FFFFFF', fontColor = '#000000', bold = false, alignment = 'left') => {
-  return {
-    fill: { fgColor: { rgb: bgColor } },
-    font: { bold, color: { rgb: fontColor } },
-    alignment: { horizontal: alignment, vertical: 'center' },
-    border: {
-      top: { style: 'thin', color: { rgb: 'E0E0E0' } },
-      bottom: { style: 'thin', color: { rgb: 'E0E0E0' } },
-      left: { style: 'thin', color: { rgb: 'E0E0E0' } },
-      right: { style: 'thin', color: { rgb: 'E0E0E0' } }
-    }
-  };
-};
 
 /**
  * Export visitors data to Excel with professional formatting

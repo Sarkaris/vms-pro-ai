@@ -48,7 +48,6 @@ const Navbar = ({ onMobileMenuClick }) => {
   // Use local state for notifications to avoid Zustand infinite loop
   const [notifications, setNotifications] = useState([]);
   const [emergencyNotifications, setEmergencyNotifications] = useState([]);
-  const [visitorNotifications, setVisitorNotifications] = useState([]);
   const [recentActivities, setRecentActivities] = useState([]);
   
   const [darkMode, setDarkMode] = useState(false);
@@ -72,7 +71,7 @@ const Navbar = ({ onMobileMenuClick }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const { mockApi } = await import('../utils/mockData');
+        const { mockApi } = await import('../utils/mockData.js');
         
         // Fetch active visitors for notifications
         const visitorData = await mockApi.getActiveVisitors();
@@ -86,7 +85,6 @@ const Navbar = ({ onMobileMenuClick }) => {
             visitorId: visitor._id
           }));
         }
-        setVisitorNotifications(newVisitorNotifications);
         
         // Fetch today's check-ins for recent activities
         const allVisitors = await mockApi.getVisitors();

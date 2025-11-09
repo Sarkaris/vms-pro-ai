@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketContext';
 import {
@@ -24,7 +24,7 @@ const CheckIn = () => {
   const { t, lang } = useI18n();
   const webcamRef = useRef(null);
 
-  const initialFormData = {
+  const initialFormData = useMemo(() => ({
     firstName: '',
     lastName: '',
     email: '',
@@ -46,7 +46,7 @@ const CheckIn = () => {
     location: 'Main Lobby',
     isVip: false,
     securityLevel: 'Low',
-  };
+  }), []);
 
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
@@ -160,13 +160,11 @@ const handleSearch = useCallback(async (identifier) => {
     setSearchId('');
   }
 }, [initialFormData]);
-  // Regex patterns for validation
-  const phoneRegex = /^[6-9]\d{9}$/;
-
   // Auto-search when manual input matches known identifier patterns (debounced)
   useEffect(() => {
     if (!searchId || isSearching) return;
     const raw = (searchId || '').toString().trim();
+    const phoneRegex = /^[6-9]\d{9}$/;
     const panRegex = /^[A-Z]{5}\d{4}[A-Z]$/;
     const passportRegex = /^[A-Z][0-9]{7}$/;
     const aadhaarLike = /^\d{12}$/.test(raw);
@@ -180,7 +178,7 @@ const handleSearch = useCallback(async (identifier) => {
       handleSearch(raw);
     }, 500);
     return () => clearTimeout(timer);
-  }, [searchId, isSearching, phoneRegex, handleSearch, lastAutoSearched]);
+  }, [searchId, isSearching, handleSearch, lastAutoSearched]);
 
   // Updated lists per requirements - Police Departments in alphabetical order
   const purposes = [
@@ -227,7 +225,7 @@ const handleSearch = useCallback(async (identifier) => {
   const validateField = (name, rawValue, nextState) => {
     let message = '';
     const value = (rawValue || '').toString().trim();
-    const state = nextState || formData;
+    const currentState = nextState || formData;
 
     if (name === 'firstName' || name === 'lastName') {
       if (!nameRegex.test(value)) message = "Only letters, spaces, .' - (2-50 chars)";

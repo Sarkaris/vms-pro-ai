@@ -15,7 +15,7 @@ const EmergencyModal = ({ onClose }) => {
     showDemoToast('emergency');
     try {
       setSubmitting(true);
-      const { mockApi } = await import('../utils/mockData');
+      const { mockApi } = await import('../utils/mockData.js');
       const payload = tab === 'visitor'
         ? { 
             type: 'Visitor', 

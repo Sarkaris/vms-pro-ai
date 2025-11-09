@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useI18n } from '../contexts/I18nContext';
-import { Eye, EyeOff, Shield, Users, BarChart, Clock } from 'lucide-react';
+import { Shield, Users, BarChart, Clock } from 'lucide-react';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { useNavigate } from "react-router-dom";
 
@@ -188,9 +187,9 @@ const handleSubmit = async (e) => {
                   />
                   <span className="ml-2 text-sm text-gray-600">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-blue-600 hover:text-blue-500">
+                <button type="button" className="text-sm text-blue-600 hover:text-blue-500">
                   Forgot password?
-                </a>
+                </button>
               </div>
 
               <button
@@ -211,9 +210,9 @@ const handleSubmit = async (e) => {
             <div className="mt-6 sm:mt-8 text-center">
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
-                <a href="#" className="text-blue-600 hover:text-blue-500 font-medium">
+                <span className="text-blue-600 font-medium">
                   Contact Administrator
-                </a>
+                </span>
               </p>
             </div>
 

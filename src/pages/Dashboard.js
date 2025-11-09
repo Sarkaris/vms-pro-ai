@@ -3,11 +3,8 @@ import { useSocket } from '../contexts/SocketContext';
 import {
   Users,
   UserPlus,
-  Clock,
   AlertTriangle,
-  TrendingUp,
   Calendar,
-  MapPin,
   Activity,
   Eye,
   EyeOff,
@@ -15,15 +12,11 @@ import {
   Download
 } from 'lucide-react';
 import { 
-  LineChart, 
-  Line, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer, 
-  BarChart as RechartsBarChart, 
-  Bar, 
   PieChart as RechartsPieChart, 
   Pie, 
   Cell,
@@ -39,7 +32,7 @@ import toast from 'react-hot-toast';
 const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useI18n();
-  const { socket, connected } = useSocket();
+  const { connected } = useSocket();
   const { user } = useAuth();
   const [dashboardData, setDashboardData] = useState({
     currentVisitors: 0,
