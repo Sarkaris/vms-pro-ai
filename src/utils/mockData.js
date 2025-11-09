@@ -2,7 +2,6 @@
 
 // Generate mock visitors
 const generateMockVisitors = () => {
-  const statuses = ['Checked In', 'Checked Out'];
   const purposes = [
     'Anti-Human Trafficking Unit',
     'Antiterrorism Squad',

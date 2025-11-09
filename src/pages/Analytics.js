@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Calendar,
   Download,
-  Filter,
   TrendingUp,
   TrendingDown,
   Users,
   Clock,
-  MapPin,
   BarChart,
-  PieChart,
   Activity,
   AlertTriangle,
   Shield,
@@ -19,7 +15,6 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { exportAnalyticsToExcel } from '../utils/exportUtils';
 
 import {
   LineChart,
@@ -29,8 +24,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  BarChart as RechartsBarChart,
-  Bar,
   PieChart as RechartsPieChart,
   Pie,
   Cell,
@@ -258,6 +251,7 @@ const Analytics = () => {
     if (!showStaticData) {
       fetchAnalyticsData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPeriod, selectedDateRange, showStaticData]);
 
   // Sync analysis type with server period when on live data

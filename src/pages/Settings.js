@@ -171,11 +171,7 @@ const Settings = () => {
     }
   };
 
-  const downloadBackup = async (backupId) => {
-    const { showDemoToast } = await import('../components/UI/DemoPopup');
-    showDemoToast('backup');
-    toast.error('Backup download is disabled in demo mode');
-  };
+  // Backup download functionality disabled in demo mode
 
   const restoreBackup = async (file) => {
     const { showDemoToast } = await import('../components/UI/DemoPopup');

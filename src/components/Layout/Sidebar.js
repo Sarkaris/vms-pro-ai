@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useI18n } from '../../contexts/I18nContext';
@@ -21,7 +21,6 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
 
   // Sidebar dynamic data
   const [quickStats, setQuickStats] = useState({ currentVisitors: 0, todayTotal: 0, activeEmergencies: 0 });
-  const [recentActivity, setRecentActivity] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
         
         // If server data not available, use mock
         if (!sidebarData) {
-          const { mockApi } = await import('../utils/mockData');
+          const { mockApi } = await import('../utils/mockData.js');
           sidebarData = await mockApi.getSidebar();
         }
         
@@ -62,7 +61,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
             }
           } else {
             // Fallback to mock
-            const { mockApi } = await import('../utils/mockData');
+            const { mockApi } = await import('../utils/mockData.js');
             const emergencyData = await mockApi.getEmergencies();
             if (emergencyData && emergencyData.emergencies) {
               const activeEmergencies = emergencyData.emergencies.filter(e => e.status === 'Active');
@@ -73,7 +72,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
           console.error('Error fetching emergencies:', error);
           // Try mock as fallback
           try {
-            const { mockApi } = await import('../utils/mockData');
+            const { mockApi } = await import('../utils/mockData.js');
             const emergencyData = await mockApi.getEmergencies();
             if (emergencyData && emergencyData.emergencies) {
               const activeEmergencies = emergencyData.emergencies.filter(e => e.status === 'Active');
@@ -96,9 +95,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
           activeEmergencies: activeEmergenciesCount
         });
         
-        // Recent activity moved to Navbar notifications; keep but limit silently
-        const ra = Array.isArray(sidebarData.recentActivity) ? sidebarData.recentActivity.slice(0,0) : [];
-        setRecentActivity(ra);
+        // Recent activity moved to Navbar notifications
       } catch (e) {
         console.error('Error fetching sidebar data:', e);
         // graceful fallback - keep previous values or set to 0
