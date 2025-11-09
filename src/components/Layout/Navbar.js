@@ -17,6 +17,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import EmergencyModal from '../UI/EmergencyModal';
+import { mockApi } from '../../utils/mockData';
 
 // Custom hook to detect clicks outside of a component
 const useClickOutside = (callback) => {
@@ -71,7 +72,7 @@ const Navbar = ({ onMobileMenuClick }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const { mockApi } = await import('../utils/mockData.js');
+        // Using static import instead of dynamic import
         
         // Fetch active visitors for notifications
         const visitorData = await mockApi.getActiveVisitors();

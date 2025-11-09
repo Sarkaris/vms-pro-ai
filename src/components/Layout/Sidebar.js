@@ -13,6 +13,7 @@ import {
   AlertTriangle,
   X
 } from 'lucide-react';
+import { mockApi } from '../../utils/mockData';
 
 const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
   const location = useLocation();
@@ -21,14 +22,11 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
 
   // Sidebar dynamic data
   const [quickStats, setQuickStats] = useState({ currentVisitors: 0, todayTotal: 0, activeEmergencies: 0 });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
     const fetchSidebar = async () => {
       try {
-        setLoading(true);
-        
         // Try fetching from server directly first
         let sidebarData = null;
         try {
@@ -43,7 +41,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
         
         // If server data not available, use mock
         if (!sidebarData) {
-          const { mockApi } = await import('../utils/mockData.js');
+          // Using static import instead of dynamic import
           sidebarData = await mockApi.getSidebar();
         }
         
@@ -61,7 +59,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
             }
           } else {
             // Fallback to mock
-            const { mockApi } = await import('../utils/mockData.js');
+            // Using static import instead of dynamic import
             const emergencyData = await mockApi.getEmergencies();
             if (emergencyData && emergencyData.emergencies) {
               const activeEmergencies = emergencyData.emergencies.filter(e => e.status === 'Active');
@@ -72,7 +70,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
           console.error('Error fetching emergencies:', error);
           // Try mock as fallback
           try {
-            const { mockApi } = await import('../utils/mockData.js');
+            // Using static import instead of dynamic import
             const emergencyData = await mockApi.getEmergencies();
             if (emergencyData && emergencyData.emergencies) {
               const activeEmergencies = emergencyData.emergencies.filter(e => e.status === 'Active');
@@ -106,7 +104,7 @@ const Sidebar = ({ isOpen = false, onClose = () => {} }) => {
           activeEmergencies: prev.activeEmergencies || 0
         }));
       } finally {
-        if (isMounted) setLoading(false);
+        // Cleanup handled by isMounted check
       }
     };
     fetchSidebar();

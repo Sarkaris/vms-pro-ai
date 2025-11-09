@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { showDemoToast } from './DemoPopup';
 import toast from 'react-hot-toast';
+import { mockApi } from '../../utils/mockData';
 
 const EmergencyModal = ({ onClose }) => {
   const [tab, setTab] = useState('visitor');
@@ -15,7 +16,7 @@ const EmergencyModal = ({ onClose }) => {
     showDemoToast('emergency');
     try {
       setSubmitting(true);
-      const { mockApi } = await import('../utils/mockData.js');
+      // Using static import instead of dynamic import
       const payload = tab === 'visitor'
         ? { 
             type: 'Visitor', 
